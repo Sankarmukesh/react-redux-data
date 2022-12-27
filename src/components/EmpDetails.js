@@ -13,7 +13,10 @@ import { AddEmp, EditEmp, singleEmp } from "../redux/actions/EmpActions";
 const EmpDetails = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.employees);
- 
+  const [search,setSearch] = useState("")
+  useEffect(()=>{
+    
+  },[search])
   const [showModal, setShowModal] = useState(false);
   const [empDetails, setEmpDetails] = useState({
     emp_id: "",
@@ -97,7 +100,8 @@ const EmpDetails = () => {
           <div>
             <input
               placeholder="Experience"
-              type="text"
+              type="number"
+            min={0}
               value={SingleempDetails.emp_experience}
               onChange={(e) => {
                 setSingleEmpDetails((prev) => ({
@@ -152,7 +156,8 @@ const EmpDetails = () => {
         <div>
           <input
             placeholder="Experience"
-            type="text"
+            type="number"
+            min={0}
             value={empDetails.emp_experience}
             onChange={(e) => {
               setEmpDetails((prev) => ({
@@ -212,9 +217,9 @@ const EmpDetails = () => {
           type="text"
           style={{ padding: "5px", marginBottom: "10px" }}
           placeholder="search employee with name"
-          value={empDetails.emp_id}
+          value={search}
           onChange={(e) => {
-            setEmpDetails((prev) => ({ ...prev, emp_id: e.target.value }));
+            setSearch(e.target.value);
           }}
           id=""
         />
