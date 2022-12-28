@@ -14,10 +14,21 @@ import {debounce} from 'lodash'
 const EmpDetails = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.employees);
+  const [searchData,setSearchData] = useState([])
+  useEffect(()=>{
+    setSearchData(data.emp_data)
+  },[data])
+
+
+
+
   const [search,setSearch] = useState("")
   useEffect(()=>{
-    
+    setSearchData(data.emp_data.filter(d=>{ return d.emp_name.toLowerCase().includes(search.toLowerCase())}))
   },[search])
+
+
+
   const [showModal, setShowModal] = useState(false);
   const [empDetails, setEmpDetails] = useState({
     emp_id: "",
@@ -62,7 +73,7 @@ const EmpDetails = () => {
 
   const searchHandle =(e) =>{
     setSearch(e.target.value);
-    dispatch({type:"Search",payload:e.target.value})
+    
   }
   return (
     <div>
@@ -258,7 +269,7 @@ const EmpDetails = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.emp_data.map((row, index) => (
+              {searchData.map((row, index) => (
                 <>
                   <TableRow>
                     {/* <TableCell className="tableCell bo">{row.index}</TableCell> */}
