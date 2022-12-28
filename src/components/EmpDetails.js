@@ -10,6 +10,7 @@ import { Modal } from "antd";
 import "./emp.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AddEmp, EditEmp, singleEmp } from "../redux/actions/EmpActions";
+import {debounce} from 'lodash'
 const EmpDetails = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.employees);
@@ -53,6 +54,10 @@ const EmpDetails = () => {
     dispatch({ type: "Delete", payload: { id } });
   };
 
+  const searchHandle =(e) =>{
+    setSearch(e.target.value);
+    dispatch({type:"Search",payload:e.target.value})
+  }
   return (
     <div>
       <Modal
@@ -219,7 +224,7 @@ const EmpDetails = () => {
           placeholder="search employee with name"
           value={search}
           onChange={(e) => {
-            setSearch(e.target.value);
+            searchHandle(e)
           }}
           id=""
         />
