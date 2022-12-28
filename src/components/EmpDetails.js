@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import { Modal } from "antd";
 import "./emp.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { AddEmp, EditEmp, singleEmp } from "../redux/actions/EmpActions";
+import { AddEmp, AddUserThunk, allEmps, deleteUserThunk, EditUserThunk, singleEmp } from "../redux/actions/EmpActions";
 import {debounce} from 'lodash'
 const EmpDetails = () => {
   const dispatch = useDispatch();
@@ -38,20 +38,26 @@ const EmpDetails = () => {
     single_employee !== null && setSingleEmpDetails(single_employee);
   }, [single_employee]);
 
+
+  // calls the allEmps() action when page loads
   useEffect(() => {
-    dispatch({ type: "ALL" });
-  }, []);
+    dispatch(allEmps());
+  }, [dispatch]);
 
   const addData = () => {
-    dispatch(AddEmp(empDetails));
+    dispatch(AddUserThunk(empDetails));
     setEmpDetails({ emp_id: "", emp_name: "", emp_experience: "", salary: "" });
   };
+
+
+
+
   const edit = (id) => {
     dispatch(singleEmp(id));
     setShowModal(true);
   };
   const deletion = (id) => {
-    dispatch({ type: "Delete", payload: { id } });
+    dispatch(deleteUserThunk(id));
   };
 
   const searchHandle =(e) =>{
@@ -66,7 +72,7 @@ const EmpDetails = () => {
         centered
         visible={showModal}
         onOk={() => {
-          dispatch(EditEmp(SingleempDetails.id, SingleempDetails));
+          dispatch(EditUserThunk(SingleempDetails.id, SingleempDetails));
           setShowModal(false);
         }}
         onCancel={() => {

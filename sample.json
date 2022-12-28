@@ -10,15 +10,15 @@
     {
       "emp_id": "yu",
       "emp_name": "iuh",
-      "emp_experience": "iuh",
+      "emp_experience": "21",
       "salary": 2000,
       "id": 3
     },
     {
       "emp_id": "fwe",
       "emp_name": " rwf",
-      "emp_experience": "efd",
-      "salary": 2,
+      "emp_experience": "9",
+      "salary": "20",
       "id": 4
     }
   ]
